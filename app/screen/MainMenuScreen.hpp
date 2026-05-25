@@ -10,6 +10,7 @@
 
 #include "SelectCategoryScreen.hpp"
 #include "ScanStationsScreen.hpp"
+#include "FrequencyScannerScreen.hpp"
 
 class MainMenuScreen {
 private:
@@ -22,6 +23,7 @@ public:
 
         menuView = new SubMenuUiView("Chief Cooker");
         menuView->AddItem("Scan for station signals", HANDLER_1ARG(&MainMenuScreen::scanStationsMenuPressed));
+        menuView->AddItem("Find pager channel", HANDLER_1ARG(&MainMenuScreen::findPagerChannelPressed));
         menuView->AddItem("Saved stations database", HANDLER_1ARG(&MainMenuScreen::stationDatabasePressed));
         menuView->AddItem("About / Manual", HANDLER_1ARG(&MainMenuScreen::aboutPressed));
         menuView->SetOnDestroyHandler(HANDLER(&MainMenuScreen::destroy));
@@ -35,6 +37,11 @@ private:
     void scanStationsMenuPressed(uint32_t) {
         UiManager::GetInstance()->ShowLoading();
         UiManager::GetInstance()->PushView((new ScanStationsScreen(config))->GetView());
+    }
+
+    void findPagerChannelPressed(uint32_t) {
+        UiManager::GetInstance()->ShowLoading();
+        UiManager::GetInstance()->PushView((new FrequencyScannerScreen())->GetView());
     }
 
     void stationDatabasePressed(uint32_t) {

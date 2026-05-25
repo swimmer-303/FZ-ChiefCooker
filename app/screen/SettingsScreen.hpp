@@ -21,7 +21,6 @@ private:
     UiVariableItem* signalRepeatItem;
     UiVariableItem* ignoreSavedItem;
     UiVariableItem* autosaveFoundItem;
-    UiVariableItem* debugModeItem;
 
     String frequencyStr;
     String maxPagerStr;
@@ -170,7 +169,6 @@ private:
         delete signalRepeatItem;
         delete ignoreSavedItem;
         delete autosaveFoundItem;
-        delete debugModeItem;
 
         delete this;
     }
