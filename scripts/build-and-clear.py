@@ -1,20 +1,12 @@
 import os
-import sys
-import pathlib
 import lief
-
-try:
-    import certifi
-    os.environ.setdefault("SSL_CERT_FILE", certifi.where())
-except ImportError:
-    pass
+import pathlib
 
 UFBT_PATH = pathlib.Path.home() / ".ufbt"
 
 FAP_LOCATION_AFTER_BUILD = "dist/chief_cooker.fap"
 FAP_LOCATION_ON_FLIPPER = "/ext/apps/Sub-GHz/chief_cooker.fap"
 OBJCOPY_PATH = UFBT_PATH / "toolchain/current/bin/arm-none-eabi-objcopy"
-RUNFAP_PATH = UFBT_PATH / "current/scripts/runfap.py"
 
 
 def clearSections():
@@ -33,13 +25,9 @@ def clearSections():
             os.system(cmd)
 
 
-rc = os.system("%s -m ufbt" % sys.executable)
-if rc != 0:
-    sys.exit(rc)
-
+os.system("ufbt")
 clearSections()
-
 os.system(
-    '%s "%s" -p auto -s %s -t %s'
-    % (sys.executable, RUNFAP_PATH, FAP_LOCATION_AFTER_BUILD, FAP_LOCATION_ON_FLIPPER)
+    "%s/toolchain/current/python/python %s/current/scripts/runfap.py -p auto -s %s -t %s"
+    % (UFBT_PATH, UFBT_PATH, FAP_LOCATION_AFTER_BUILD, FAP_LOCATION_ON_FLIPPER)
 )
